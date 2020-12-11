@@ -19,28 +19,46 @@ def game_intro():
         print("invalid input")
 
 
-    def update_word(word):
-        length = len(word)
-
-
 
 def start_game():
     word = create_random_word()
+    word_progress = "_" * len(word)
+    guessed_letters = []
+    guessed_words = []
     guess_count = 0
     player_tries_left = 6
 
     print(hangmanUI[player_tries_left])
+    print(word_progress)
+    print(word)
     while player_tries_left > 0:
-        player_input = input("Guess a letter: ")
-        if player_input in word:
-            print("correct")
-            guess_count += 1
+        player_guess = input("Guess a letter: ")
+        if len(player_guess) == 1 and player_guess.isalpha():
+            if player_guess in guessed_letters:
+                print("you have already guessed that letter")
+            elif player_guess in word:
+                print("correct")
+                guess_count += 1
+                guessed_letters.append(player_guess)
+            else:
+                player_tries_left -= 1
+                print(hangmanUI[player_tries_left])
+                guess_count += 1
+                guessed_letters.append(player_guess)
+                if player_tries_left == 0:
+                    print("game over")
         else:
-            player_tries_left -= 1
-            print(hangmanUI[player_tries_left])
-            guess_count += 1
-            if player_tries_left == 0:
-                print("game over")
+            if player_guess == word:
+                guess_count += 1
+                print("Correct! The word was " + word + "!" + "\nIt took you " + str(guess_count) + " trie(s) to guess "
+                                                                                                    "the word.")
+                break
+
+            else:
+                print("Incorrect. " + player_guess + " is not the word...")
+                player_tries_left -= 1
+                guess_count += 1
+                print(hangmanUI[player_tries_left])
 
 if game_intro():
     start_game()
