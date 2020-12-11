@@ -3,29 +3,51 @@ from words import word_list
 from hangmanGUI import hangmanUI
 
 
-def createRandomWord():
+def create_random_word():
     word = random.choice(word_list)
     return word
 
 
-word = createRandomWord()
-print(word)
-
-player_tries = 0
-incorrect_guess_count = 0
-
-while incorrect_guess_count < 7:
-    print(hangmanUI[incorrect_guess_count])
-    player_input = input("Guess a letter")
-    if player_input in word:
-        print("correct")
-        player_tries += 1
+def game_intro():
+    player_input = input("Hello and Welcome to Hangman!" + "\nTo play a game of Hangman, type 'y'. If you would like "
+                                                           "to exit, type 'n': ")
+    if player_input == 'y' or 'Y':
+        return True
+    elif player_input == 'n' or 'N':
+        return False
     else:
-        print(hangmanUI[incorrect_guess_count])
-        incorrect_guess_count += 1
-        player_tries += 1
-        if incorrect_guess_count == 6:
-            print("game over")
+        print("invalid input")
+
+
+    def update_word(word):
+        length = len(word)
+
+
+
+def start_game():
+    word = create_random_word()
+    guess_count = 0
+    player_tries_left = 6
+
+    print(hangmanUI[player_tries_left])
+    while player_tries_left > 0:
+        player_input = input("Guess a letter: ")
+        if player_input in word:
+            print("correct")
+            guess_count += 1
+        else:
+            player_tries_left -= 1
+            print(hangmanUI[player_tries_left])
+            guess_count += 1
+            if player_tries_left == 0:
+                print("game over")
+
+if game_intro():
+    start_game()
+else:
+    print("User has exited game")
+
+
 
 
 #maybe make a play game function that initiates when player input calls function

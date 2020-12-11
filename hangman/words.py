@@ -22,4 +22,4 @@ word_list = [
     'cadillac',
     'mercedes',
     'pineapple'
-]s
+]
