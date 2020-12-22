@@ -9,14 +9,17 @@ def create_random_word():
 
 
 def game_intro():
+    result = False
     player_input = input("Hello and Welcome to Hangman!" + "\nTo play a game of Hangman, type 'y'. If you would like "
                                                            "to exit, type 'n': ")
-    if player_input == 'y' or 'Y':
-        return True
-    elif player_input == 'n' or 'N':
-        return False
+    if player_input == 'y' or player_input == 'Y':
+        result = True
+    elif player_input == 'n' or player_input == 'N':
+        print("Maybe next time")
     else:
         print("invalid input")
+
+    return result
 
 
 
@@ -60,12 +63,11 @@ def start_game():
                 guess_count += 1
                 print(hangmanUI[player_tries_left])
 
+
 if game_intro():
     start_game()
 else:
     print("User has exited game")
-
-
 
 
 #maybe make a play game function that initiates when player input calls function
