@@ -29,13 +29,14 @@ def start_game():
     guessed_words = []
     guess_count = 0
     player_tries_left = 6
+    letters_in_word = set(word)
 
-    word_progress = [letter if letter in guessed_letters else '_' for letter in word]
-    word_progress_format = ' '.join(word_progress)
     print(hangmanUI[player_tries_left])
-    print(word_progress_format)
     print(word)
-    while player_tries_left > 0:
+    while len(letters_in_word) > 0:
+        word_progress = [letter if letter in guessed_letters else '_' for letter in word]
+        word_progress_format = ' '.join(word_progress)
+        print(word_progress_format)
         player_guess = input("Guess a letter: ")
         if len(player_guess) == 1 and player_guess.isalpha():
             if player_guess in guessed_letters:
@@ -44,6 +45,7 @@ def start_game():
                 print("correct")
                 guess_count += 1
                 guessed_letters.append(player_guess)
+                letters_in_word.pop()
                 print(word_progress_format)
             else:
                 player_tries_left -= 1
