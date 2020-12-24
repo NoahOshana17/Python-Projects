@@ -25,14 +25,15 @@ def game_intro():
 
 def start_game():
     word = create_random_word()
-    word_progress = "_" * len(word)
     guessed_letters = []
     guessed_words = []
     guess_count = 0
     player_tries_left = 6
 
+    word_progress = [letter if letter in guessed_letters else '_' for letter in word]
+    word_progress_format = ' '.join(word_progress)
     print(hangmanUI[player_tries_left])
-    print(word_progress)
+    print(word_progress_format)
     print(word)
     while player_tries_left > 0:
         player_guess = input("Guess a letter: ")
@@ -43,6 +44,7 @@ def start_game():
                 print("correct")
                 guess_count += 1
                 guessed_letters.append(player_guess)
+                print(word_progress_format)
             else:
                 player_tries_left -= 1
                 print(hangmanUI[player_tries_left])
@@ -53,14 +55,16 @@ def start_game():
         else:
             if player_guess == word:
                 guess_count += 1
-                print("Correct! The word was " + word + "!" + "\nIt took you " + str(guess_count) + " trie(s) to guess "
+                print("Correct! The word was " + word + "!" + "\nIt took you " + str(guess_count) + " tries to guess "
                                                                                                     "the word.")
+                guessed_words.append(player_guess)
                 break
 
             else:
                 print("Incorrect. " + player_guess + " is not the word...")
                 player_tries_left -= 1
                 guess_count += 1
+                guessed_words.append(player_guess)
                 print(hangmanUI[player_tries_left])
 
 
