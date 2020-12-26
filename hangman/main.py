@@ -24,6 +24,8 @@ def game_intro():
 
 
 def start_game():
+    game_result = False
+
     word = create_random_word()
     guessed_letters = []
     guessed_words = []
@@ -31,35 +33,41 @@ def start_game():
     player_tries_left = 6
     letters_in_word = set(word)
 
-    print(hangmanUI[player_tries_left])
-    print(word)
-    while len(letters_in_word) > 0:
+    while len(letters_in_word) > 0 and player_tries_left > 0:
+
         word_progress = [letter if letter in guessed_letters else '_' for letter in word]
         word_progress_format = ' '.join(word_progress)
+
+        print(hangmanUI[player_tries_left])
         print(word_progress_format)
         player_guess = input("Guess a letter: ")
         if len(player_guess) == 1 and player_guess.isalpha():
             if player_guess in guessed_letters:
                 print("you have already guessed that letter")
+
             elif player_guess in word:
                 print("correct")
                 guess_count += 1
                 guessed_letters.append(player_guess)
                 letters_in_word.pop()
                 print(word_progress_format)
+
             else:
                 player_tries_left -= 1
                 print(hangmanUI[player_tries_left])
                 guess_count += 1
                 guessed_letters.append(player_guess)
+
                 if player_tries_left == 0:
                     print("game over")
+
         else:
             if player_guess == word:
                 guess_count += 1
                 print("Correct! The word was " + word + "!" + "\nIt took you " + str(guess_count) + " tries to guess "
                                                                                                     "the word.")
                 guessed_words.append(player_guess)
+                game_result = True
                 break
 
             else:
@@ -68,6 +76,7 @@ def start_game():
                 guess_count += 1
                 guessed_words.append(player_guess)
                 print(hangmanUI[player_tries_left])
+
 
 
 if game_intro():
