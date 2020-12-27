@@ -1,7 +1,12 @@
 import random
+from tkinter import *
 from words import word_list
 from hangmanGUI import hangmanUI
 
+window = Tk()
+label = Label(window, text="hangman")
+label.pack
+window.mainloop()
 
 def create_random_word():
     word = random.choice(word_list)
@@ -50,16 +55,13 @@ def start_game():
                 guess_count += 1
                 guessed_letters.append(player_guess)
                 letters_in_word.pop()
-                print(word_progress_format)
 
             else:
                 player_tries_left -= 1
-                print(hangmanUI[player_tries_left])
                 guess_count += 1
                 guessed_letters.append(player_guess)
 
-                if player_tries_left == 0:
-                    print("game over")
+
 
         else:
             if player_guess == word:
