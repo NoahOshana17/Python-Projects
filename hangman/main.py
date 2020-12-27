@@ -3,16 +3,14 @@ from tkinter import *
 from words import word_list
 from hangmanGUI import hangmanUI
 
-window = Tk()
-label = Label(window, text="hangman")
-label.pack
-window.mainloop()
 
+# Pulls random word from the words module
 def create_random_word():
     word = random.choice(word_list)
     return word
 
 
+# Prompts the user to decide to play or exit
 def game_intro():
     result = False
     player_input = input("Hello and Welcome to Hangman!" + "\nTo play a game of Hangman, type 'y'. If you would like "
@@ -27,7 +25,7 @@ def game_intro():
     return result
 
 
-
+# Hangman game play
 def start_game():
     game_result = False
 
@@ -61,8 +59,6 @@ def start_game():
                 guess_count += 1
                 guessed_letters.append(player_guess)
 
-
-
         else:
             if player_guess == word:
                 guess_count += 1
@@ -80,12 +76,26 @@ def start_game():
                 print(hangmanUI[player_tries_left])
 
 
-
+# checking if use wants to play or not
 if game_intro():
     start_game()
 else:
     print("User has exited game")
 
+# maybe make a play game function that initiates when player input calls function
+# Testing git clone on laptop part 2
 
-#maybe make a play game function that initiates when player input calls function
-#Testing git clone on laptop part 2
+
+# Creating GUI using tkinter
+# Creating window and title for hangman
+window = Tk()
+window.title("Hangman")
+# Sets dimensions of window
+window.geometry("400x400")
+# Creating label
+label = Label(window, text="Welcome To Hangman!", fg="black", bg="green")
+label.pack()
+
+# Creating button to begin game
+begin_button = Button(window, text="Play", command=start_game())
+window.mainloop()
