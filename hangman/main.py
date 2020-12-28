@@ -77,10 +77,10 @@ def start_game():
 
 
 # checking if use wants to play or not
-if game_intro():
-    start_game()
-else:
-    print("User has exited game")
+# if game_intro():
+#     start_game()
+# else:
+#     print("User has exited game")
 
 # maybe make a play game function that initiates when player input calls function
 # Testing git clone on laptop part 2
@@ -97,5 +97,6 @@ label = Label(window, text="Welcome To Hangman!", fg="black", bg="green")
 label.pack()
 
 # Creating button to begin game
-begin_button = Button(window, text="Play", command=start_game())
+begin_button = Button(window, text="Play", command=start_game)
+begin_button.pack()
 window.mainloop()
