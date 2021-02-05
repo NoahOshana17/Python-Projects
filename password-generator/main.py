@@ -29,7 +29,31 @@ class PasswordGenerator:
         return self.password
 
     def generate_password2(self):
-        pass
+        result = int(self.capital_letters)
+        result = (result << 1) + int(self.digits)
+        result = (result << 1) + int(self.special_char)
+
+        if result == 0:
+            self.password = ''.join([random.choice(string.ascii_lowercase) for i in range(self.length)])
+        elif result == 1:
+            self.password = ''.join([random.choice(string.punctuation) for i in range(self.length)])
+        elif result == 2:          #add lowercase letters by default so password isnt just numbers
+            self.password = ''.join([random.choice(string.ascii_lowercase + string.digits) for i in range(self.length)])
+        elif result == 3:
+            self.password = ''.join([random.choice(string.digits + string.punctuation) for i in range(self.length)])
+        elif result == 4:
+            self.password = ''.join([random.choice(string.ascii_uppercase) for i in range(self.length)])
+        elif result == 5:
+            self.password = ''.join([random.choice(string.ascii_uppercase + string.punctuation) for i in range(self.length)])
+        elif result == 6:
+            self.password = ''.join([random.choice(string.ascii_uppercase + string.digits) for i in range(self.length)])
+        elif result == 7:
+            self.password = ''.join([random.choice(string.ascii_uppercase + string.digits + string.punctuation)
+                                     for i in range(self.length)])
+        else:
+            self.password = ''
+
+        return self.password
 
     def get_info(self):
         self.length = int(input("Enter your desired length for the password: "))
@@ -58,7 +82,7 @@ class PasswordGenerator:
         elif special_char == 'N':
             self.special_char = False
         else:
-            print("Error. Password will not have digits...")
+            print("Error. Password will not have special characters...")
             self.special_char = False
 
     def __repr__(self):
@@ -67,5 +91,5 @@ class PasswordGenerator:
 
 password = PasswordGenerator()
 password.get_info()
-password.generate_password()
+password.generate_password2()
 print(password)
