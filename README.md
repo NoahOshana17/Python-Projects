@@ -11,4 +11,5 @@
 
 ### Ideas for future projects
 	- Currency Converter using real-time exchange rates
+	- Presidential Briefings 
 
